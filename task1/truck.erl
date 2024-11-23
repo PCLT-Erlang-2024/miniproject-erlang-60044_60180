@@ -7,7 +7,7 @@ start(Capacity) ->
 loop(Capacity, LoadedPackages) ->
     receive
         {deliver, Package} ->
-            Size = tuple_size(Package),
+            Size = element(1, Package),
             case Capacity >= Size of
                 true ->
                     NewCapacity = Capacity - Size,
