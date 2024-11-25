@@ -7,6 +7,7 @@ start(Capacity) ->
 loop(Capacity, LoadedPackages) ->
     receive
         {deliver, Package} ->
+            io:format("Truck received package: ~p~n", [Package]),
             Size = element(1, Package),
             case Capacity >= Size of
                 true ->
@@ -15,7 +16,10 @@ loop(Capacity, LoadedPackages) ->
                     loop(NewCapacity, [Package | LoadedPackages]);
                 false ->
                     io:format("Truck is full, requesting replacement...~n"),
+                    R = whereis(conveyor),
+                    io:format("R: ~p~n", [R]),
                     whereis(conveyor) ! {truck_full},
-                    exit(self(), normal)
+                    %exit(self(), normal)
+                    loop(Capacity, [])
             end
     end.

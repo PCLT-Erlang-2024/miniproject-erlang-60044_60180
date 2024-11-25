@@ -22,13 +22,14 @@ process_packages(Truck, Queue, Id, Capacity) ->
                     process_packages(Truck, Queue, Id, Capacity)
             end;
         {check_capacity, Factory} ->
-            res = length(Queue) < Capacity,
-            Factory ! {capacity_status, res},
+            Res = length(Queue) < Capacity,
+            Factory ! {capacity_status, Res},
             process_packages(Truck, Queue, Id, Capacity);
         {truck_full} ->
             io:format("Truck full, waiting for replacement~n"),
+            NewTruck = truck:start(40),
             timer:sleep(2000),
-            process_packages(Truck, Queue, Id, Capacity)
+            process_packages(NewTruck, Queue, Id, Capacity)
     after 1000 ->
         self() ! {load_to_truck},
         process_packages(Truck, Queue, Id, Capacity)
