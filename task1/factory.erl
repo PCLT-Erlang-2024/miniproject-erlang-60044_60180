@@ -1,9 +1,9 @@
 -module(factory).
 -export([start/2, sendPackages/3]).
 
-start(Conveyors, Packages_limit) ->
+start(Conveyors, PackagesPerConveyor) ->
     lists:foreach(fun(Conveyor) ->
-        spawn(factory, sendPackages, [Conveyor, 1, Packages_limit])
+        spawn(factory, sendPackages, [Conveyor, 1, PackagesPerConveyor])
     end, Conveyors).
 
 sendPackages(Conveyor, Counter, Packages_limit) ->

@@ -12,5 +12,5 @@ start(NumConveyors) ->
 create_conveyors(0, Conveyors) ->
         lists:reverse(Conveyors);
 create_conveyors(N, Conveyors) ->
-        Conveyor = conveyor:start(50),  % Adjust the capacity as needed
+        Conveyor = conveyor:start(200),  % Adjust the capacity as needed
         create_conveyors(N - 1, [Conveyor | Conveyors]).
