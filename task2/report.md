@@ -1,3 +1,5 @@
+# Task 2 Report
+
 In order to load truck in an uneven way, we load each conveyor belt with fixed size packages and, when loading each truck, we calculate a random number between 1 and the size of the head of the queue list that contains all fixed size packages.
 
 This way, we guarantee that the trucks are loading with a random uniform distribution of packages.
